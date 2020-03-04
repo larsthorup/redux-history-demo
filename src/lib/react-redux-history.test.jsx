@@ -9,7 +9,7 @@ import * as ReactReduxHistory from './react-redux-history';
 test('react-redux-history', async () => {
   // given initial setup
   const rootReducer = Redux.combineReducers({
-    location: ReduxHistory.reducer
+    location: ReduxHistory.locationReducer
   });
   const middleware = Redux.compose(
     Redux.applyMiddleware(ReduxHistory.locationMiddleware)

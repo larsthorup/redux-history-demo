@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+thead {
+  background-color: white;
+  color: #282c34;
+}
+
+tr.highlight {
+  background-color: grey;
+}
+
+td {
+  border: 1px solid white;
+  padding: 4px;
+}

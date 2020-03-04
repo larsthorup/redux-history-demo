@@ -35,7 +35,7 @@ export const initialState = {
   search: {}
 };
 
-export function reducer(state = initialState, action) {
+export function locationReducer(state = initialState, action) {
   switch (action.type) {
     case 'locationChanged':
       const location = {
@@ -50,7 +50,6 @@ export function reducer(state = initialState, action) {
 }
 
 export const locationMiddleware = store => next => action => {
-  const state = store.getState().location;
   const { payload } = action;
   switch (action.type) {
     case 'historyPush':
