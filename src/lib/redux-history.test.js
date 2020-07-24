@@ -3,10 +3,10 @@ import * as History from 'history';
 
 import * as ReduxHistory from './redux-history';
 
-test('redux-history', () => {
+test('redux-history', async () => {
   // given initial setup
   const rootReducer = Redux.combineReducers({
-    location: ReduxHistory.locationReducer
+    location: ReduxHistory.locationReducer,
   });
   const middleware = Redux.compose(
     Redux.applyMiddleware(ReduxHistory.locationMiddleware)

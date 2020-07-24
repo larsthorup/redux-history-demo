@@ -1,7 +1,12 @@
 import React from 'react';
 import * as Redux from 'redux';
 import * as ReactRedux from 'react-redux';
-import { getNodeText, fireEvent, render, wait } from '@testing-library/react';
+import {
+  getNodeText,
+  fireEvent,
+  render,
+  waitFor,
+} from '@testing-library/react';
 
 import * as ReduxHistory from './redux-history';
 import * as ReactReduxHistory from './react-redux-history';
@@ -9,7 +14,7 @@ import * as ReactReduxHistory from './react-redux-history';
 test('react-redux-history', async () => {
   // given initial setup
   const rootReducer = Redux.combineReducers({
-    location: ReduxHistory.locationReducer
+    location: ReduxHistory.locationReducer,
   });
   const middleware = Redux.compose(
     Redux.applyMiddleware(ReduxHistory.locationMiddleware)
@@ -19,24 +24,34 @@ test('react-redux-history', async () => {
   const RoutePaths = {
     Home: '/',
     Profile: '/profile/:id',
-    Signin: '/signin'
+    Signin: '/signin',
   };
   const Home = () => {
     const navigate = ReactReduxHistory.useNavigate();
     return (
       <>
         <div>Home</div>
-        <button onClick={navigate('/signin')}>Login</button>
-        <button onClick={navigate('/profile/47', { tab: 'all' })}>
+        <button onClick={navigate(RoutePaths.Signin)}>Login</button>
+        <button
+          onClick={navigate(RoutePaths.Profile, { id: 47 }, { tab: 'all' })}
+        >
           Profile
         </button>
       </>
     );
   };
-  const Signin = () => <div>Signin</div>;
+  const Signin = () => {
+    const navigateBack = ReactReduxHistory.useNavigateBack();
+    return (
+      <>
+        <div>Signin</div>
+        <button onClick={navigateBack}>Back</button>
+      </>
+    );
+  };
   const Profile = () => {
     const { id } = ReactReduxHistory.usePath(RoutePaths.Profile);
-    const { tab } = ReactRedux.useSelector(state => state.location.hash);
+    const { tab } = ReactRedux.useSelector((state) => state.location.hash);
     return (
       <div>
         Profile-{id}-{tab}
@@ -46,7 +61,7 @@ test('react-redux-history', async () => {
   const routes = {
     [RoutePaths.Home]: <Home />,
     [RoutePaths.Profile]: <Profile />,
-    [RoutePaths.Signin]: <Signin />
+    [RoutePaths.Signin]: <Signin />,
   };
   const App = () => {
     const routeResult = ReactReduxHistory.useRoutes(routes);
@@ -66,19 +81,19 @@ test('react-redux-history', async () => {
   fireEvent.click(getByText('Login'));
 
   // then Signin is rendered
-  await wait(() => getByText('Signin'));
+  await waitFor(() => getByText('Signin'));
 
   // when clicking browser back
-  ReduxHistory.history.goBack();
+  fireEvent.click(getByText('Back'));
 
   // then Home is rendered
-  await wait(() => getByText('Home'));
+  await waitFor(() => getByText('Home'));
 
   // when navigating with hash parameter
   fireEvent.click(getByText('Profile'));
 
   // then Profile is rendered with those parameters
-  await wait(() => getByText('Profile-47-all'));
+  await waitFor(() => getByText('Profile-47-all'));
 
   // when navigating to non-existing page
   ReduxHistory.history.push('/notyet');
