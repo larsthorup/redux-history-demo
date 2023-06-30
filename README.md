@@ -8,4 +8,4 @@ Demo project to accompany this blog post: https://www.fullstackagile.eu/2020/03/
     npm test
     npm start
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
