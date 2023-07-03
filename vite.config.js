@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     coverage: {
-      reporters: ["lcov", "text", "html"],
+      reporter: ["lcov", "text", "html"],
     },
     environment: "jsdom",
     setupFiles: ["vitest.setup.js"],
