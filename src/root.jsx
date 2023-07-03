@@ -1,10 +1,10 @@
-import React from 'react';
-import App from './App';
-import * as ReactRedux from 'react-redux';
-import * as Redux from 'redux';
-import ReduxThunk from 'redux-thunk';
-import * as ReduxHistory from './lib/redux-history';
-import { rootReducer } from './store';
+import React from "react";
+import App from "./App";
+import * as ReactRedux from "react-redux";
+import * as Redux from "redux";
+import ReduxThunk from "redux-thunk";
+import * as ReduxHistory from "./lib/redux-history";
+import { rootReducer } from "./store";
 
 const composeEnhancers =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
@@ -15,7 +15,12 @@ const middleware = composeEnhancers(
 
 export const createRootElement = () => {
   const store = setupStore();
-  return connect(<App />, store);
+  return connect(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+    store
+  );
 };
 
 export const setupStore = () => {

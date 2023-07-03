@@ -1,5 +1,6 @@
 import { render, fireEvent } from '@testing-library/react';
 import { createRootElement } from './root';
+import { expect, test } from 'vitest';
 
 test('app', () => {
   // When: render

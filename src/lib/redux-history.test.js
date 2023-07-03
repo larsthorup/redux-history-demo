@@ -2,6 +2,7 @@ import * as Redux from 'redux';
 import * as History from 'history';
 
 import * as ReduxHistory from './redux-history';
+import { expect, test } from 'vitest';
 
 test('redux-history', async () => {
   // given initial setup

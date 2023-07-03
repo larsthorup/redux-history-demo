@@ -10,6 +10,7 @@ import {
 
 import * as ReduxHistory from './redux-history';
 import * as ReactReduxHistory from './react-redux-history';
+import { expect, test } from 'vitest';
 
 test('react-redux-history', async () => {
   // given initial setup
